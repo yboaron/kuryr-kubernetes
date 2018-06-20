@@ -87,19 +87,18 @@ The L7 Router
 In Kuryr context, a L7 router is actually an externally reachable
 loadbalancer with L7 capabilities.
 For achieving external connectivity the L7 router is attached to a floating
-IP (allocated from 'external_svc_subnet').
+IP.
 
 The following parameters should be configured in kuryr.conf file to
 enable L7 Router::
 
-         [neutron_defaults]
-         external_svc_subnet=external_subnet_id
-         l7_router_ip=<floating_ip> (e.g: 172.24.4.13)
+         [ingress]
+         l7_router_uuid=<loadbalancer uuid>
          [kubernetes]
          enable_ingress = True
+         # make sure that 'ingresslb' appears in enabled_handlers
+         enabled_handlers= vif,lb,lbaasspec,ingresslb
 
-In case L7 router is enabled in kuryr.conf, the kuryr-kubernetes controller
-should create it only if it doesn't exist.
 The L7 Router should notify the Health Manager upon any failure that could
 lead to L7 Router's malfunctionality.
 
@@ -247,4 +246,3 @@ References
 .. [1] https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress
 .. [2] https://github.com/kubernetes/ingress-nginx/blob/master/README.md
 .. [3] https://wiki.openstack.org/wiki/Neutron/LBaaS/l7
-
