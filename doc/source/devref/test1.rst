@@ -14,31 +14,30 @@ The next steps are needed for setting OCP-Router:
 
 1. Create LoadBalancer that will run the L7 loadbalancing::
 
-
-  [stack@gddggd devstack]$ openstack loadbalancer create --name  kuryr-l7-router  --vip-subnet-id  k8s-service-subnet
-  +---------------------+--------------------------------------+
-  | Field               | Value                                |
-  +---------------------+--------------------------------------+
-  | admin_state_up      | True                                 |
-  | created_at          | 2018-06-28T06:34:15                  |
-  | description         |                                      |
-  | flavor              |                                      |
-  | id                  | 99f580e6-d894-442a-bc5f-4d14b41e10d2 |
-  | listeners           |                                      |
-  | name                | kuryr-l7-router                 |
-  | operating_status    | OFFLINE                              |
-  | pools               |                                      |
-  | project_id          | 24042703aba141b89217e098e495cea1     |
-  | provider            | amphora                              |
-  | provisioning_status | PENDING_CREATE                       |
-  | updated_at          | None                                 |
-  | vip_address         | 10.0.0.171                           |
-  | vip_network_id      | 65875d24-5a54-43fb-91a7-087e956deb1a |
-  | vip_port_id         | 42c6062a-644a-4004-a4a6-5a88bf596196 |
-  | vip_qos_policy_id   | None                                 |
-  | vip_subnet_id       | 01f21201-65a3-4bc5-a7a8-868ccf4f0edd |
-  +---------------------+--------------------------------------+
-  [stack@gddggd devstack]$
+    [stack@gddggd devstack]$ openstack loadbalancer create --name  kuryr-l7-router  --vip-subnet-id  k8s-service-subnet
+    +---------------------+--------------------------------------+
+    | Field               | Value                                |
+    +---------------------+--------------------------------------+
+    | admin_state_up      | True                                 |
+    | created_at          | 2018-06-28T06:34:15                  |
+    | description         |                                      |
+    | flavor              |                                      |
+    | id                  | 99f580e6-d894-442a-bc5f-4d14b41e10d2 |
+    | listeners           |                                      |
+    | name                | kuryr-l7-router                 |
+    | operating_status    | OFFLINE                              |
+    | pools               |                                      |
+    | project_id          | 24042703aba141b89217e098e495cea1     |
+    | provider            | amphora                              |
+    | provisioning_status | PENDING_CREATE                       |
+    | updated_at          | None                                 |
+    | vip_address         | 10.0.0.171                           |
+    | vip_network_id      | 65875d24-5a54-43fb-91a7-087e956deb1a |
+    | vip_port_id         | 42c6062a-644a-4004-a4a6-5a88bf596196 |
+    | vip_qos_policy_id   | None                                 |
+    | vip_subnet_id       | 01f21201-65a3-4bc5-a7a8-868ccf4f0edd |
+    +---------------------+--------------------------------------+
+    [stack@gddggd devstack]$
 
 
 
