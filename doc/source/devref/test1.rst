@@ -43,29 +43,29 @@ The next steps are needed for setting OCP-Router:
 
 2. Create floating IP address that should be accessible from external network::
 
-[stack@gddggd devstack]$ openstack floating ip create --subnet public-subnet  public
-+---------------------+--------------------------------------+
-| Field               | Value                                |
-+---------------------+--------------------------------------+
-| created_at          | 2018-06-28T06:31:36Z                 |
-| description         |                                      |
-| dns_domain          | None                                 |
-| dns_name            | None                                 |
-| fixed_ip_address    | None                                 |
-| floating_ip_address | 172.24.4.3                           |
-| floating_network_id | 3371c2ba-edb5-45f2-a589-d35080177311 |
-| id                  | c971f6d3-ba63-4318-a9e7-43cbf85437c2 |
-| name                | 172.24.4.3                           |
-| port_details        | None                                 |
-| port_id             | None                                 |
-| project_id          | 24042703aba141b89217e098e495cea1     |
-| qos_policy_id       | None                                 |
-| revision_number     | 0                                    |
-| router_id           | None                                 |
-| status              | DOWN                                 |
-| subnet_id           | 939eeb1f-20b8-4185-a6b1-6477fbe73409 |
-| tags                | []                                   |
-| updated_at          | 2018-06-28T06:31:36Z                 |
-+---------------------+--------------------------------------+
-[stack@gddggd devstack]$ 
+        [stack@gddggd devstack]$ openstack floating ip create --subnet public-subnet  public
+        +---------------------+--------------------------------------+
+        | Field               | Value                                |
+        +---------------------+--------------------------------------+
+        | created_at          | 2018-06-28T06:31:36Z                 |
+        | description         |                                      |
+        | dns_domain          | None                                 |
+        | dns_name            | None                                 |
+        | fixed_ip_address    | None                                 |
+        | floating_ip_address | 172.24.4.3                           |
+        | floating_network_id | 3371c2ba-edb5-45f2-a589-d35080177311 |
+        | id                  | c971f6d3-ba63-4318-a9e7-43cbf85437c2 |
+        | name                | 172.24.4.3                           |
+        | port_details        | None                                 |
+        | port_id             | None                                 |
+        | project_id          | 24042703aba141b89217e098e495cea1     |
+        | qos_policy_id       | None                                 |
+        | revision_number     | 0                                    |
+        | router_id           | None                                 |
+        | status              | DOWN                                 |
+        | subnet_id           | 939eeb1f-20b8-4185-a6b1-6477fbe73409 |
+        | tags                | []                                   |
+        | updated_at          | 2018-06-28T06:31:36Z                 |
+        +---------------------+--------------------------------------+
+        [stack@gddggd devstack]$ 
 
