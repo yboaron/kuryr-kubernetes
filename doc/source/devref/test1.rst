@@ -2,8 +2,9 @@ Enable OCP-Router functionality
 ===============================
 
 To enable OCP-Router functionality we should set the following:
-* Setting OCP-Router.
-* Configure Kuryr to support OCP-Route resources.
+
+- Setting OCP-Router.
+- Configure Kuryr to support OCP-Route resources.
 
 Setting L7 Router
 ------------------
