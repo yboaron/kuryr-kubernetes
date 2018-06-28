@@ -5,7 +5,7 @@ To enable OCP-Router functionality we should set the following:
 * Setting OCP-Router.
 * Configure Kuryr to support OCP-Route resources.
 
-Setting OCP-Router
+Setting L7 Router
 ------------------
 
 The OCP-Router is the ingress point for the external traffic destined
@@ -24,7 +24,7 @@ The next steps are needed for setting OCP-Router:
     | flavor              |                                      |
     | id                  | 99f580e6-d894-442a-bc5f-4d14b41e10d2 |
     | listeners           |                                      |
-    | name                | kuryr-l7-router                 |
+    | name                | kuryr-l7-router                      |
     | operating_status    | OFFLINE                              |
     | pools               |                                      |
     | project_id          | 24042703aba141b89217e098e495cea1     |
@@ -67,5 +67,80 @@ The next steps are needed for setting OCP-Router:
         | tags                | []                                   |
         | updated_at          | 2018-06-28T06:31:36Z                 |
         +---------------------+--------------------------------------+
-        [stack@gddggd devstack]$ 
+        [stack@gddggd devstack]$
 
+
+3. Bind the floating IP to LB vip::
+
+        [stack@gddggd devstack]$ openstack floating ip set --port 42c6062a-644a-4004-a4a6-5a88bf596196  172.24.4.3
+
+
+Configure Kuryr to support OCP-Route resources
+----------------------------------------------
+
+1. Configure the L7 Router by adding the LB UUID at kuryr.conf::
+
+        [ingress]
+        l7_router_uuid = 99f580e6-d894-442a-bc5f-4d14b41e10d2
+
+
+2. Enable the ocp-route and k8s-endpoint handlers. For that you need to add
+   this handlers to the enabled handlers list at kuryr.conf (details on how
+   to edit this for containerized deployment can be found
+   at :doc:`./devstack/containerized`)::
+
+        [kubernetes]
+        enabled_handlers=vif,lb,lbaasspec,ocproute,ingresslb
+
+Note: you need to restart the kuryr controller after applying the above
+detailed steps. For devstack non-containerized deployments::
+
+  sudo systemctl restart devstack@kuryr-kubernetes.service
+
+
+And for containerized deployments::
+
+  kubectl -n kube-system get pod | grep kuryr-controller
+  kubectl -n kube-system delete pod KURYR_CONTROLLER_POD_NAME
+
+
+For directly enabling the driver when deploying with devstack, you just need
+to add the following at local.conf file::
+
+  KURYR_ENABLE_INGRESS=True
+  KURYR_ENABLED_HANDLERS=vif,lb,lbaasspec,ocproute,ingresslb
+
+
+Testing OCP-Route functionality
+-------------------------------
+
+1. Create a service::
+
+    $ oc run --image=celebdor/kuryr-demo  kuryr-demo
+    $ oc scale dc/kuryr-demo  --replicas=2
+    $ oc expose dc/kuryr-demo --port 80 --target-port 8080
+
+
+2. Create a Route object::
+
+    $  cat >> route.yaml << EOF
+    > apiVersion: v1
+    > kind: Route
+    > metadata:
+    >  name: testroute
+    > spec:
+    >  host: www.firstroute.com
+    >  to:
+    >    kind: Service
+    >    name: kuryr-demo
+    > EOF
+    $ oc create -f route.yaml
+
+
+3. Curl L7 router's FIPusing specified hostname::
+
+    $  curl  --header 'Host: www.firstroute.com'  172.24.4.3
+       kuryr-demo-1-gzgj2: HELLO, I AM ALIVE!!!
+    $
+    
+           
